@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Courses</title>
+        <style>
+            #link { 
+                background: none;
+                border: none;
+                color: #0066ff;
+                text-decoration: underline;
+                cursor: pointer; 
+                }
+            table, th, td {
+                border: 1px solid black;
+                }
+        </style>
+    </head>
+    <body>
+
+        <div style='text-align: center'>
+            <h1>Add a new course: </h1>
+            <form action='/courses/create' method='post'>
+                    {% csrf_token %}
+                <label for='name'>Name: <input type='text' name='name'></label>
+                <br>
+                <br>
+                <label for='desc'>Description: <textarea name='desc'></textarea></label>
+                <br>
+                <input type='submit' value='Add'>
+            </form>
+        </div>
+        <br>
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        <br>
+        <br>
+        <div>
+            <table>
+                    <tr>
+                        <th>Course Name</th>
+                        <th>Description</th>
+                        <th>Date Added</th>
+                        <th>Actions</th>
+                    </tr>
+                    {% for course in courses  %}
+                    <tr>    
+                        <td>{{course.name}}</td>
+                        {% for des in desc %}
+                            {% if des.course == course %}
+                        <td>{{des.description}}</td>
+                            {% endif %}
+                        {% endfor %}
+                        <td>{{course.created_at}}</td>
+                        <td>
+                            <form  action="/delete/{{course.id}}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Delete" id="link">     
+                            </form>
+                        </td>   
+                    </tr>
+                    {% endfor %}
+            </table>
+        </div>
+        
+    </body>
+</html>
