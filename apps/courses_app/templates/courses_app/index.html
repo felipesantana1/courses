@@ -51,11 +51,7 @@
                     {% for course in courses  %}
                     <tr>    
                         <td>{{course.name}}</td>
-                        {% for des in desc %}
-                            {% if des.course == course %}
-                        <td>{{des.description}}</td>
-                            {% endif %}
-                        {% endfor %}
+                        <td>{{course.desc}}</td>
                         <td>{{course.created_at}}</td>
                         <td>
                             <form  action="/delete/{{course.id}}" method="post">

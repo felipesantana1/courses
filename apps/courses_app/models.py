@@ -14,10 +14,7 @@ class CoursesManager(models.Manager):
 
 class Courses(models.Model):
     name = models.CharField(max_length=255)
+    desc = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     objects = CoursesManager()
-
-class Desc(models.Model):
-    description = models.TextField(null=True)
-    course = models.OneToOneField(Courses, related_name='desc', on_delete=models.CASCADE)

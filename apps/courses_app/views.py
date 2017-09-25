@@ -5,8 +5,7 @@ from django.contrib import messages
 
 def display(request):
     context = {
-        'courses' : Courses.objects.all(),
-        'desc' : Desc.objects.all()
+        'courses' : Courses.objects.all()
     }
     return render(request, 'courses_app/index.html', context)
 
@@ -17,8 +16,7 @@ def create(request):
             messages.error(request, error, extra_tags=tag)
         return redirect('/courses')
     else:
-        x = Courses.objects.create(name = request.POST['name'])
-        Desc.objects.create(description = request.POST['desc'], course = x)
+        x = Courses.objects.create(name = request.POST['name'], desc = request.POST['desc'])
     return redirect('/courses')
 
 def delete(request, id):
